@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        h2 {
+            text-align: center;
+        }
+        input[type="text"], input[type="email"], input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: darkgreen;
+        }
+        .profile_button{
+            display: flex;
+        }
+        .custom-link {
+            text-decoration: none; /* Remove underline */
+            color: white; /* Change text color */
+        }
+        #button_profile{
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Create Your Profile</h2>
+        <form id="profileForm" enctype="multipart/form-data">
+            <label for="hnumber"">House number:</label>
+            <input type="text" id="hnumber" required>
+
+            <label for="wnumber">Ward number:</label>
+            <input type="text" id="wnumber" required>
+
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" required>
+
+            <label for="profilePic">Upload Profile Picture:</label>
+            <input type="file" id="profilePic" accept="image/*" required>
+
+            <div class="profile_button">
+            <button id="button_profile" type="button" onclick="saveProfile()">Create Profile</button>
+            <button type="button"><a class="custom-link" href="client_page.html">login</a></button>
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+        function saveProfile() {
+            const hnumber = document.getElementById('hnumber').value;
+            const wnumber = document.getElementById('wnumber').value;
+            const phone = document.getElementById('phone').value;
+            const profilePic = document.getElementById('profilePic').files[0];
+
+            // Validate inputs
+            if (!hnumber || !wnumber || !phone || !profilePic) {
+                alert("All fields are required!");
+                return;
+            }
+
+            // Read the profile picture as a data URL
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const profileData = {
+                    hnumber: hnumber,
+                    wnumber: wnumber,
+                    phone: phone,
+                    profilePic: event.target.result  // Store image as a Base64 string
+                };
+
+                // Save the profile data in localStorage
+                localStorage.setItem('userProfile', JSON.stringify(profileData));
+
+                // Redirect to the profile page
+                window.location.href = 'client_page.html';
+            };
+
+            reader.readAsDataURL(profilePic);
+        }
+    </script>
+    
+</body>
+</html>

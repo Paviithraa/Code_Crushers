@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .profile-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+        h2, p {
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: darkred;
+        }
+        .custom-link {
+            text-decoration: none; /* Remove underline */
+            color: white; /* Change text color */
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h2 id="profileName"></h2>
+        <img id="profileImage" src="" alt="Profile Picture">
+        <p id="profileEmail"></p>
+        <p id="profilePhone"></p>
+        <button><a class="custom-link" href="client_page.html">Back to Home</a> </button>
+        <button onclick="deleteProfile()">Logout</button>
+    </div>
+
+    <script>
+        // Load the profile data from localStorage
+        function loadProfile() {
+            const profileData = JSON.parse(localStorage.getItem('userProfile'));
+            if (profileData) {
+                document.getElementById('profileName').innerText = profileData.hnumber;
+                document.getElementById('profileEmail').innerText = `Ward number: ${profileData.wnumber}`;
+                document.getElementById('profilePhone').innerText = `Phone: ${profileData.phone}`;
+                document.getElementById('profileImage').src = profileData.profilePic;
+            } else {
+                alert("No profile found! Please create your profile.");
+                window.location.href = 'profile_creation.html';
+            }
+        }
+
+        // Delete the profile
+        function deleteProfile() {
+            localStorage.removeItem('userProfile');
+            alert("Successfully Logged Out");
+            window.location.href = 'profile_creation.html';
+        }
+
+        window.onload = loadProfile;
+    </script>
+</body>
+</html>

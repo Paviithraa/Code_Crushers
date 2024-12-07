@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .subscription-info {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+        .subscription-info p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Subscription</h1>
+    
+    <div class="input-group">
+        <label for="amount">Enter Amount</label>
+        <input type="number" id="amount" placeholder="Enter recharge amount">
+    </div>
+
+    <div class="input-group">
+        <label for="subscription">Subscription Validity (days)</label>
+        <input type="text" id="subscription" placeholder="e.g., 30 days" readonly>
+    </div>
+
+    <button onclick="calculateValidity()">Add Money & Show Validity</button>
+
+    <div class="subscription-info" id="info" style="display: none;">
+        <p><strong>Recharge Amount:</strong> <span id="displayAmount"></span></p>
+        <p><strong>Validity:</strong> <span id="displayValidity"></span></p>
+    </div>
+</div>
+
+<script>
+    function calculateValidity() {
+        const amount = document.getElementById("amount").value;
+        const subscription = document.getElementById("subscription");
+
+        // For example, $10 gives 30 days of validity
+        if (amount >= 10) {
+            subscription.value = "30 days";
+        } else {
+            subscription.value = "Insufficient amount for a subscription";
+        }
+
+        // Show the info section
+        document.getElementById("info").style.display = "block";
+        document.getElementById("displayAmount").textContent = "$" + amount;
+        document.getElementById("displayValidity").textContent = subscription.value;
+    }
+</script>
+
+</body>
+</html>     
